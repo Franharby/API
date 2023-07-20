@@ -1,0 +1,1584 @@
+{
+  "info": {
+    "_postman_id": "6745e165-251e-497c-ad31-f0aa4d63a2db",
+    "name": "Sandbox Banking API V1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "registerCustomer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.environment.set(\"accountNumber\", jsonData.accountNumber);",
+                  "pm.environment.set(\"customerNumber\", jsonData.customerNumber);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Basic {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n      \"productName\": \"CRCU1001\",\n      \"parameters\":  [\n          {\n            \"name\": \"institutionId\",\n            \"value\": \"{{institutionId}}\"\n          },\n          {\n            \"name\": \"agent_number\",\n            \"value\": \"{{institutionId}}\"\n          },\n          {\n            \"name\": \"customer_number\",\n            \"value\": \"{{institutionId}}_P004\"\n          },\n          {\n            \"name\": \"product_id\",\n            \"value\": \"{{productId}}\"\n          },\n          {\n            \"name\": \"start_date\",\n            \"value\": \"2021-09-06\"\n          },\n          {\n            \"name\": \"service_id_acc\",\n            \"value\": \"{{serviceId}}\"\n          },\n          {\n            \"name\": \"surname\",\n            \"value\": \"Smith\"\n          },\n          {\n            \"name\": \"firstName\",\n            \"value\": \"John\"\n          },\n          {\n            \"name\": \"secondName\",\n            \"value\": \"A.\"\n          },\n          {\n            \"name\": \"email\",\n            \"value\": \"johnsmith@email.com\"\n          },\n          {\n            \"name\": \"mobile_phone\",\n            \"value\": \"319220977338\"\n          },\n          {\n            \"name\": \"country_code\",\n            \"value\": \"528\"\n          },\n          {\n            \"name\": \"region\",\n            \"value\": \"BJ\"\n          },\n          {\n            \"name\": \"city\",\n            \"value\": \"Utrecht\"\n          },\n          {\n            \"name\": \"street\",\n            \"value\": \"Papendorpseweg\"\n          },\n          {\n            \"name\": \"house\",\n            \"value\": \"99\"\n          },\n          {\n            \"name\": \"apartament\",\n            \"value\": \"1\"\n          },\n\t\t      {\n            \"name\": \"postal_code\",\n            \"value\": \"3528\"\n          }\n        ]\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/registerCustomer",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "registerCustomer"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCustomerInfo",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerNumber\": \"{{customerNumber}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getCustomerInfo",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getCustomerInfo"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "isCustomerExist (Prod only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customerNumber\": \"{{customerNumber}}\",\n  \"institutionId\": \"{{institutionId}}\"\n\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/isCustomerExist",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "isCustomerExist"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "changeAccountLimit (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"accountNumber\": {{accountNumber}},\n        \"limit\": {\n          \"name\": \"LMTP0901\",\n          \"value\": 10000000,\n          \"cycleType\": 1,\n          \"cycleLength\": 1\n        }\n    }\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeAccountLimit",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeAccountLimit"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAccountLimits (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"accountNumber\": {{accountNumber}}\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getAccountLimits",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getAccountLimits"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changeAccountStatus (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\n        \"accountNumber\": {{accountNumber}},\n        \"accountStatus\": 1\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeAccountStatus",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeAccountStatus"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changeAccountStatusInFe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"accountNumber\": {{accountNumber}},\n        \"accountStatus\": 1\n    }\n"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeAccountStatusInFe",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeAccountStatusInFe"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changeAccountArrestAmount (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n      \"accountNumber\": \"{{accountNumber}}\",\n      \"amount\": 0,\n      \"currency\": 978\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeAccountArrestAmount",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeAccountArrestAmount"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAccountData",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"accountNumber\": {{accountNumber}}\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getAccountData",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getAccountData"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "setAllowedBeneficiaries (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n \"accountNumber\": \"{{accountNumber}}\",\n  \"beneficiaries\": [\"string\"]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/setAllowedBeneficiaries",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "setAllowedBeneficiaries"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllowedBeneficiaries (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"{{accountNumber}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getAllowedBeneficiaries",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getAllowedBeneficiaries"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "setAllowedMccList (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"{{accountNumber}}\",\n  \"mccList\": [0]\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/setAllowedMccList",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "setAllowedMccList"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getAllowedMccList (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"accountNumber\": \"{{accountNumber}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getAllowedMccList",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getAllowedMccList"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Merchant",
+      "item": [
+        {
+          "name": "changeMerchantStatus (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantNumber\": \"string\",\n  \"institutionId\": \"{{institutionId}}\",\n  \"agentId\": \"string\",\n  \"customerNumber\": \"{{customerNumber}}\",\n  \"contractNumber\": \"{string}\",\n  \"status\": \"string\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeMerchantStatus",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeMerchantStatus"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getMerchantTransactions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n      \"cardId\": {{cardId}}\n    },\n    \"period\": {\n          \"start\": \"2020-04-01\",\n          \"end\": \"2022-05-01\"\n        }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getTransactions",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getTransactions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changeTerminalStatus (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"merchantNumber\": \"11111111\",\n  \"terminalNumber\": \"11111111\",\n  \"institutionId\": \"{{institutionId}}\",\n  \"agentId\": \"1\",\n  \"customerNumber\": \"{{customerNumber}}\",\n  \"contractNumber\": \"string\",\n  \"status\": \"string\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeTerminalStatus",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeTerminalStatus"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "generateKey (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"terminalId\": 0,\n  \"terminalNumber\": \"11111111\",\n  \"merchantNumber\": \"111111111\",\n  \"hostId\": 0,\n  \"keyType\": \"string\",\n  \"keyLength\": \"ENKL_0016\",\n  \"keySerialNumber\": \"string\",\n  \"dukptId\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/generateKey",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "generateKey"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "setKey(Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"terminalId\": 0,\n  \"terminalNumber\": \"string\",\n  \"merchantNumber\": \"string\",\n  \"hostId\": 0,\n  \"keyType\": \"ENKTTMKA\",\n  \"inputKeyPrefix\": \"U\",\n  \"key\": \"string\",\n  \"keyCheckValue\": \"string\",\n  \"newKeyPrefix\": \"U\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/setKey",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "setKey"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "serviceAction (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"serviceIdentification\": {\n          \"serviceType\": 7,\n          \"serviceId\": 300,\n          \"serviceObjectType\": \"SERVICE_OBJECT_CARD\"\n        },\n        \"actionCode\": \"ACTION_CODE_ADD\",\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/serviceAction",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "serviceAction"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cards & Wallets",
+      "item": [
+        {
+          "name": "activateCard (Prod Only)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.environment.set(\"cardNumber\", jsonData.virtualCardIdentification.cardNumber);",
+                  "pm.environment.set(\"cardId\", jsonData.virtualCardIdentification.cardId);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/activateCard",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "activateCard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "blockCard",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.environment.set(\"cardNumber\", jsonData.virtualCardIdentification.cardNumber);",
+                  "pm.environment.set(\"cardId\", jsonData.virtualCardIdentification.cardId);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardId\": {{cardId}}\n        },\n        \"hotCardStatus\": 6\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/blockCard",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "blockCard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "validateCard",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        }\n    }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/validateCard",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "validateCard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "bindCardToAccount (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cardIdentification\": {\n    \"cardNumber\":{{cardNumber}},\n    \"expDate\": 202312\n  },\n  \"accountNumber\":{{accountNumber}},\n  \"accountType\": \"ACCOUNT_TYPE_DEFAULT\",\n  \"personalData\": {\n    \"firstName\": \"John\",\n    \"lastName\": \"A\"\n    },\n  \"customerId\": \"3210_P004\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/bindCardToAccount",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "bindCardToAccount"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCardLimits",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n      \"cardId\": {{cardId}}\n    }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getCardLimits",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getCardLimits"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addCardLimitException (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        },\n        \"limitException\": {\n          \"limitName\": \"LMTTC01\",\n          \"startDate\": \"2021-01-01\",\n          \"endDate\": \"2021-12-12\",\n          \"value\": 10000000,\n          \"cycleType\": 4,\n          \"cycleLength\": 1\n        }\n     }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/addCardLimitException",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "addCardLimitException"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changeCardLimit",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n      \"cardId\": {{cardId}}\n    },\n    \"limit\": {\n      \"name\": \"LMTP0112\",\n      \"value\": 13000000,\n      \"cycleType\": 4,\n      \"cycleLength\": 1\n    }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeCardLimit",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeCardLimit"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changeCardLimitException (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}},\n          \"expDate\": 202312\n        },\n        \"limitException\": {\n          \"limitName\": \"LMTP0112\",\n          \"startDate\": \"2021-01-01\",\n          \"endDate\": \"2022-04-30\",\n          \"value\": 10000000\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeCardLimitException",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeCardLimitException"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "deleteCardLimitException ((Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}},\n          \"expDate\": 202312\n        },\n        \"limitException\": {\n          \"limitName\": \"LMTP0112\",\n          \"startDate\": \"2021-01-01\",\n          \"endDate\": \"2022-01-01\"\n      }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/deleteCardLimitException",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "deleteCardLimitException"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "generatePin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n        \"cardId\": {{cardId}}\n    },\n    \"pinDeliveryMethod\": \"WS\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/generatePin",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "generatePin"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changePin (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        },\n        \"newPinData\": \"059B2AA97DF72557\"\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changePin",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changePin"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "resetPinCounter",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/resetPinCounter",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "resetPinCounter"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "generateCVC2 (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/generateCVC2",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "generateCVC2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "setGeoRestrictions (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        },\n        \"restrictions\": {\n          \"restriction\": [\n            {\n              \"regionId\": 5,\n              \"transactionGroupId\": 999,\n              \"status\": \"DISABLED\",\n              \"startDate\": \"2021-05-01T00:00:00\",\n              \"endDate\": \"2021-12-12T23:59:59\"\n            },\n            {\n              \"regionId\": 11,\n              \"transactionGroupId\": 3,\n              \"status\": \"DISABLED\"\n            }\n          ]\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/setGeoRestrictions",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "setGeoRestrictions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getGeoRestrictions (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getGeoRestrictions",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getGeoRestrictions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "cardStatusInquiry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/cardStatusInquiry",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "cardStatusInquiry"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "changeCardStatus (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n      \"cardId\": {{cardId}}\n    },\n    \"hotCardStatus\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/changeCardStatus",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "changeCardStatus"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "createVirtualCard",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.environment.set(\"cardNumber\", jsonData.virtualCardIdentification.cardNumber);",
+                  "pm.environment.set(\"cardId\", jsonData.virtualCardIdentification.cardId);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n        \"cardIdentification\": {\n          \"cardNumber\": {{visaBin}}0000000000,\n          \"phoneNumber\": \"319220977337\",\n          \"customerId\": \"{{institutionId}}P_0000001\"\n        },\n        \"virtualCardIdentification\": {\n          \"expDate\": 202301,\n          \"productType\": \"5C\"\n        },\n        \"amount\": 0,\n        \"currency\": 978,\n        \"accountNumber\": \"{{accountNumber}}\",\n        \"deliveryMethod\": \"WS\"\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/createVirtualCard",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "createVirtualCard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCardData",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n      \"cardId\": {{cardId}}\n    }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getCardData",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getCardData"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCardFees (Prod only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\n        \"cardNumber\": {{cardNumber}}\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getCardFees",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getCardFees"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCardListByOwner",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n        \"customerId\": \"{{customerNumber}}\"\n    }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getCardListByOwner",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getCardListByOwner"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTransactionSchemeAdditions (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "  {\n        \"cardIdentification\": {\n          \"cardId\": {{cardId}}\n        },\n        \"templateSchemeId\": 10\n      }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getTransactionSchemeAdditions",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getTransactionSchemeAdditions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "setTransactionSchemeAdditions(Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"cardIdentification\": {\n          \"cardId\": {{cardId}}\n        },\n        \"transactionSchemeAdditions\": {\n          \"addition\": [\n            {\n              \"id\": 141,\n              \"domain\": 9999,\n              \"countryGroup\": 9987,\n              \"mccGroup\": -1,\n              \"transactionType\": 793,\n              \"posDataCode\": \"************\"\n            },\n            {\n              \"id\": 142,\n              \"domain\": 9999,\n              \"countryGroup\": 9987,\n              \"mccGroup\": -1,\n              \"transactionType\": 781,\n              \"posDataCode\": \"************\"\n            },\n            {\n              \"id\": 143,\n              \"domain\": 9999,\n              \"countryGroup\": 9987,\n              \"mccGroup\": -1,\n              \"transactionType\": 781,\n              \"posDataCode\": \"************\"\n            }\n          ]\n        }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/setTransactionSchemeAdditions",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "setTransactionSchemeAdditions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "topUp (Prod only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n        \"cardNumber\": {{cardNumber}},\n        \"expDate\": 202401\n    },\n    \"amount\": 10000,\n    \"currency\": 978\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/topUp",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "topUp"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "creditCard",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n        \"cardNumber\": {{cardNumber}},\n        \"expDate\": 202301\n    },\n    \"amount\": 10000,\n    \"currency\": 978\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/creditCard",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "creditCard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "debitCard (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "    {\n        \"cardIdentification\": {\n          \"cardNumber\": {{cardNumber}}\n        },\n        \"amount\": 100,\n        \"currency\": 978,\n        \"fee\": {\n          \"feeAmount\": 100\n      }\n    }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/debitCard",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "debitCard"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "p2pTransfer",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = JSON.parse(responseBody);",
+                  "pm.environment.set(\"utrno\", jsonData.authorizationIdResponse);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"sourceCardIdentification\": {\n      \"cardNumber\": {{cardNumber}},\n      \"expDate\": 202301\n    },\n    \"destinationCardIdentification\": {\n      \"cardNumber\": 4140490033066545\n    },\n    \"amount\": 1000,\n    \"currency\": 978,\n    \"senderReceiverInfo\": {\n      \"senderName\": \"Tor, John\",\n      \"senderAddress\": \"New York, USA\"\n    },\n    \"pointOfServiceDataCode\": 810\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/p2pTransfer",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "p2pTransfer"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getOrderDetails (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 0\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getOrderDetails",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getOrderDetails"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getPaymentOrders (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderList\" : [ {\n    \"amount\" : 1,\n    \"orderNumber\" : \"orderNumber\",\n    \"purpose\" : \"purpose\",\n    \"currency\" : 6,\n    \"id\" : 0,\n    \"eventDate\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"status\" : \"status\"\n  }, {\n    \"amount\" : 1,\n    \"orderNumber\" : \"orderNumber\",\n    \"purpose\" : \"purpose\",\n    \"currency\" : 6,\n    \"id\" : 0,\n    \"eventDate\" : \"2000-01-23T04:56:07.000+00:00\",\n    \"status\" : \"status\"\n  } ]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getPaymentOrders",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getPaymentOrders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTransactionDetails (Prod only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n        \"utrnno\": 226006,\n        \"reversal\": true\n     }"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getTransactionDetails",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getTransactionDetails"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTransactions",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n      \"cardId\": {{cardId}}\n    },\n    \"period\": {\n          \"start\": \"2020-04-01\",\n          \"end\": \"2022-05-01\"\n        }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getTransactions",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getTransactions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getTransactionCurrencies (Prod Only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Basic {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cardIdentification\": {\n      \"cardId\": {{cardId}} }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/apigate/ws/rest/getTransactionCurrencies",
+
+              "host": ["{{baseUrl}}"],
+              "path": ["apigate", "ws", "rest", "getTransactionCurrencies"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://dev.bpcbt.com/v1",
+      "type": "string"
+    }
+  ]
+}
